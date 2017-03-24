@@ -1,0 +1,6 @@
+= CSoftZ Tech And Solve Lazy Problem Test
+
+*Created:* Mar.24/2017
+*Modified:* Mar.24/2017
+
+This project is a solution to the problem Lazy worker problem
