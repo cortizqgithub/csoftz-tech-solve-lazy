@@ -6,6 +6,9 @@ V1.0.0 - Mar.26/2017
 *Modified:* Mar.26/2017 {zwsp} +
 
 This project is a solution to the problem Lazy worker problem.
+With a little research the problem is a *_Facebook Hacker Cup 2017 Qualification Round_*
+
+https://www.facebook.com/hackercup/problem/169401886867367/
 
 == Technology used
 In the intent of selecting the best technology for the realization of the problem, the

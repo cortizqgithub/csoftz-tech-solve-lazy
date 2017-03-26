@@ -14,6 +14,7 @@
  -----------------------------------------------------------------------------*/
 package com.csoftz.techsolve.lazy.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class LazyWorkerExchangeInfo {
     private boolean valid;
     private String errorDescription;
     private String outputResult;
+    private List<BagItems> workDaysList;
 
     /**
      * Default constructor
@@ -38,6 +40,15 @@ public class LazyWorkerExchangeInfo {
         this.valid = false;
         this.errorDescription = "";
         this.outputResult = "";
+        this.workDaysList = new ArrayList<>();
+    }
+
+    public List<BagItems> getWorkDaysList() {
+        return workDaysList;
+    }
+
+    public void setWorkDaysList(List<BagItems> workDaysList) {
+        this.workDaysList = workDaysList;
     }
 
     public String getUserIdNumber() {

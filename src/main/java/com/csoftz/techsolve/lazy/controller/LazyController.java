@@ -3,8 +3,8 @@
 /* Description:   Lazy page                                                   */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          Mar.25/2017                                                 */
-/* Last Modified: Mar.25/2017                                                 */
-/* Version:       1.1                                                         */
+/* Last Modified: Mar.26/2017                                                 */
+/* Version:       1.2                                                         */
 /* Copyright (c), 2017 CSoftZ                                                 */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ import java.util.UUID;
  * Lazy page
  *
  * @author Carlos Adolfo Ortiz Quirós (COQ)
- * @version 1.1, Mar.25/2017
+ * @version 1.2, Mar.26/2017
  * @since 1.8 (JDK), Mar.25/2017
  */
 @Controller
@@ -84,18 +84,19 @@ public class LazyController {
             logger.info("processinData=[" + processingData + "]");
         }
         LazyWorkerExchangeInfo lazyWorkerExchangeInfo = lazyWorkerEvaluationService.validateProcessingDataFormat(processingData);
-        if (lazyWorkerExchangeInfo.isValid()){
+        if (lazyWorkerExchangeInfo.isValid()) {
             lazyWorkerEvaluationService.execute(lazyWorkerExchangeInfo);
+            lazyWorkerExchangeInfo.setUserIdNumber(userIdNumber);
+
+            // We only save in repository if input is valid
+            Registration r = new Registration();
+            r.setUserIdNumber(userIdNumber);
+            r.setCreationDate(LocalDateTime.now());
+            r.setId(UUID.randomUUID());
+            registrationService.save(r);
         }
-        lazyWorkerExchangeInfo.setUserIdNumber(userIdNumber);
+
         model.addAttribute(lazyWorkerExchangeInfo);
-
-        Registration r = new Registration();
-        r.setUserIdNumber(userIdNumber);
-        r.setCreationDate(LocalDateTime.now());
-        r.setId(UUID.randomUUID());
-        registrationService.save(r);
-
         return "lazy/process-data";
     }
 }
