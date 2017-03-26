@@ -1,6 +1,19 @@
 = CSoftZ Tech And Solve Lazy Problem Test
 
-*Created:* Mar.24/2017
-*Modified:* Mar.24/2017
+V1.0.0 - Mar.26/2017
 
-This project is a solution to the problem Lazy worker problem
+*Created:* Mar.24/2017 {zwsp} +
+*Modified:* Mar.26/2017 {zwsp} +
+
+This project is a solution to the problem Lazy worker problem.
+
+== Technology used
+In the intent of selecting the best technology for the realization of the problem, the
+following is a list of frameworks, libraries used.
+
+* Java 8
+* Spring Framework to ease the creation of Enterprise grade Java Applications.
+* Spring Boot to ease the configuration of the many  java libraries out there in the Java ecosystem. The version
+used is V1.5.2 (via maven transitivity dependency resolution, it selects the appropriate Spring Framework verson).
+* Apache Cassandra to make a repository for Registration objects. Version used V3.10
+
