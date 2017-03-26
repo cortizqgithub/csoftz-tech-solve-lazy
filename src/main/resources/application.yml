@@ -3,3 +3,8 @@ server:
 management:
   security:
     enabled: false
+spring:
+  data:
+    cassandra:
+      keyspace-name: lazy_worker
+      contact-points: localhost

@@ -15,7 +15,9 @@
 package com.csoftz.techsolve.lazy.controller;
 
 import com.csoftz.techsolve.lazy.domain.LazyWorkerExchangeInfo;
+import com.csoftz.techsolve.lazy.domain.entities.cassandra.Registration;
 import com.csoftz.techsolve.lazy.service.interfaces.ILazyWorkerEvaluationService;
+import com.csoftz.techsolve.lazy.service.interfaces.IRegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Lazy page
@@ -40,12 +45,15 @@ public class LazyController {
      */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private ILazyWorkerEvaluationService lazyWorkerEvaluationService;
+    private IRegistrationService registrationService;
 
     /**
      * Inject service to this controller.
      */
-    public LazyController(final ILazyWorkerEvaluationService lazyWorkerEvaluationService) {
+    public LazyController(final ILazyWorkerEvaluationService lazyWorkerEvaluationService,
+                          final IRegistrationService registrationService) {
         this.lazyWorkerEvaluationService = lazyWorkerEvaluationService;
+        this.registrationService = registrationService;
     }
 
     /**
@@ -81,6 +89,13 @@ public class LazyController {
         }
         lazyWorkerExchangeInfo.setUserIdNumber(userIdNumber);
         model.addAttribute(lazyWorkerExchangeInfo);
+
+        Registration r = new Registration();
+        r.setUserIdNumber(userIdNumber);
+        r.setCreationDate(LocalDateTime.now());
+        r.setId(UUID.randomUUID());
+        registrationService.save(r);
+
         return "lazy/process-data";
     }
 }
