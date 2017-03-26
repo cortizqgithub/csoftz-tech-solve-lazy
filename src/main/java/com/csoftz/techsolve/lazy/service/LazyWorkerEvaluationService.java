@@ -64,7 +64,7 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
                 info.setErrorDescription("Line 1: Invalid format. No test cases number supplied");
             } else {
                 numberOfDays = anyVal;
-                if (1 <= numberOfDays && numberOfDays <= 500) {
+                if (!(1 <= numberOfDays && numberOfDays <= 500)) {
                     info.setValid(false);
                     info.setErrorDescription("Invalid format. Number of days is not in the range 1 <= T <= 500");
                 }
@@ -88,17 +88,18 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
                         info.setErrorDescription("Line " + (i + 1) + ": Invalid format. Value of N expected.");
                     } else {
                         itemsSize = anyVal;
-                        if (1 <= itemsSize && itemsSize <= 100) {
+                        if (!(1 <= itemsSize && itemsSize <= 100)) {
                             info.setValid(false);
                             info.setErrorDescription("Invalid format. Value of items expected to be in the range 1 <= N <= 100");
                             break;
                         }
+                        i++;
                     }
-                    i++;
 
                     // Try to gather items for day
                     BagItems bagItems = new BagItems();
                     int j = 0;
+                    scannedDay++;
                     while (j < itemsSize) {
                         if (lines[i].trim().equals("")) {
                             info.setValid(false);
@@ -114,7 +115,7 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
                             info.setValid(false);
                             info.setErrorDescription("Line " + (i + 1) + ": Invalid format. Some value of W for item expected.");
                         } else {
-                            if (1 <= anyVal && anyVal <= 100) {
+                            if (!(1 <= anyVal && anyVal <= 100)) {
                                 info.setValid(false);
                                 info.setErrorDescription("Invalid format. Value of items expected to be in the range 1 <= W <= 100");
                                 break;
@@ -122,17 +123,16 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
                             bagItems.getItems().add(anyVal);
                         }
                         i++;
-                        if (i > lines.length) {
+                        j++;
+                        if (i >= lines.length) {
                             break;
                         }
-                        j++;
                     }
+                    info.getWorkDaysList().add(bagItems);
                     if (!info.isValid()) {
                         // Exit loop as some line is not valid in last loop
                         break;
                     }
-                    info.getWorkDaysList().add(bagItems);
-                    i++;
                 }
             }
             if (info.isValid() && scannedDay < numberOfDays) {
@@ -154,6 +154,8 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
         StringBuilder sb = new StringBuilder();
         List<BagItems> bagItemsList = lazyWorkerExchangeInfo.getWorkDaysList();
         for (BagItems bagItem : bagItemsList) {
+            bagItem.getItems().sort((a,b)-> a.compareTo(b));
+
             Integer[] w = bagItem.getItems().toArray(new Integer[bagItem.getItems().size()]);
             int N = bagItem.getItems().size();
 
@@ -161,7 +163,8 @@ public class LazyWorkerEvaluationService implements ILazyWorkerEvaluationService
             int step = 0;
             int end = N - 1;
             while (step <= end) {
-                int top = w[end--], mult = 1;
+                int top = w[end--];
+                int mult = 1;
                 while (step <= end && top * mult < 50) {
                     step++;
                     mult++;

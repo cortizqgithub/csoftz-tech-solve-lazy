@@ -19,4 +19,5 @@ following is a list of frameworks, libraries used.
 * Spring Boot to ease the configuration of the many  java libraries out there in the Java ecosystem. The version
 used is V1.5.2 (via maven transitivity dependency resolution, it selects the appropriate Spring Framework verson).
 * Apache Cassandra to make a repository for Registration objects. Version used V3.10
+* The abstraction to access the repository uses Spring Data with Cassandra support.
 
