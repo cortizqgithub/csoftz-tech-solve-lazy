@@ -28,11 +28,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/home")
+@SuppressWarnings("unused")
 public class HomeController {
     /**
      * Logger factory.
      */
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Goes to the landing page of application.

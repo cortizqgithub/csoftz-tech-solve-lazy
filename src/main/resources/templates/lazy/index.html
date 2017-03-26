@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/menu :: menu"></th:block> /*/-->
+<div class="container">
+    <div class="page-header">
+        <h1>Lazy Loading</h1>
+        <form id="captureData" method="post" action="/lazy/process">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-lg-8">
+                    <div class="form-group">
+                        <label for="userIdNumber">User ID Number</label>
+                        <input id="userIdNumber" name="userIdNumber" class="form-control"></input>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-lg-4">
+                    <div class="form-group">
+                        <label for="processingData">Input Data to Process</label>
+                        <textarea id="processingData" name="processingData"
+                                  class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+                <div><input type="submit" value="Do it!" class="btn btn-primary pull-left"/> <a
+                        class="btn btn-default pull-left"
+                        th:href="'/home'">Return</a></div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /.container -->
+</body>
+</html>

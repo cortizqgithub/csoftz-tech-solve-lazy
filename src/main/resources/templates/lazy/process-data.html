@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/menu :: menu"></th:block> /*/-->
+<div class="container">
+    <div class="page-header">
+        <h1>Lazy Loading Results</h1>
+        <h4 th:text="${lazyWorkerExchangeInfo.userIdNumber}"></h4>
+        <br/><br/>
+        <div th:if="${lazyWorkerExchangeInfo.valid}">
+            <span th:utext="${lazyWorkerExchangeInfo.outputResult}">Results go here</span>
+        </div>
+        <div th:unless="${lazyWorkerExchangeInfo.valid}">
+            <span th:utext="${lazyWorkerExchangeInfo.errorDescription}">Error info goes here</span>
+        </div>
+    </div>
+    <a class="btn btn-default pull-left" th:href="'/lazy'">Return</a>
+</div>
+<!-- /.container -->
+</body>
+</html>
